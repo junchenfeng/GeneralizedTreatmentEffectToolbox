@@ -37,6 +37,7 @@ Y,D,X,Z = ss.underiv_data(5000)
 x0 = np.mean(X, 0)
 x0.shape = (1,2)
 
+testEstObj = ei.treatmentEffectEst()
 
 '''
 **************************************************
@@ -49,7 +50,6 @@ normal = 1
 LLRMTE = 0
 polyOrder = 4
 
-testEstObj = ei.treatmentEffectEst()
 testEstObj.assignData(Y, D, X, Z)
 testEstObj.assignParam(linear, normal, LLRMTE, polyOrder)
 

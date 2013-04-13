@@ -8,10 +8,11 @@ II. What's in Your Box?
 
 The current version is a replica of Heckman, Urzua and Vytlacil (2006), whose detailed documentation can be found at "http://jenni.uchicago.edu/underiv/".
 
-As a pre-requisite, you need to install two pacakges:
-(i)Parallel Python(pp)
-(ii)Python Spatial Analysis Library(pysal)  - [needed for Probit model, which I am too lazy to write myself]
-
+As a pre-requisite, you need to have the following libraries:
+(i) numpy
+(ii)Parallel Python(pp)
+(iii)Python Spatial Analysis Library(pysal)  - [needed for Probit model, which I am too lazy to write myself]
+(iv) os - needed to run my example
 
 The current version offers the following four estimator for Generalized Roy Model:
 (1) Linear in outcome equation, normal distribution for the error term
@@ -26,11 +27,18 @@ The current version has the following limitation:
 (d) The propensity score is estimated with a probit for all 4 methods.
 
 III. How to Use it?
-It is as simple as it gets.
+It is as simple as it gets. For all four flavors, see the estimateExampleScript.py
+
+Step 0: build the obj
+Actual Code : " testEstObj = ei.treatmentEffectEst() "
+
 
 Step 1:
 You need to supply the toolbox with D,Z for the choice equation and X,D,Y for the outcome equation., 
 where D is the treatment variable, Y is the outcome variable, X and Z are covariates.
+
+Actual Code : " testEstObj.assignData(Y, D, X, Z) "
+
 
 Step 2: 
 You need to supply the toolbox with model speficiation. Currently you need to specify 4 parameters
@@ -39,18 +47,21 @@ You need to supply the toolbox with model speficiation. Currently you need to sp
 (1) Linear			1			1		0		0
 (2) Normal			1			0		0		0
 (3) LIVMTE			*			*		0		1
-(4) PolyOrder		*			k		k		*
+(4) PolyOrder			*			k		k		*
 
 where "*" means any integer value and "k" means the integer order of polynomial
 
-Step 3:
-You need to supply the toolbox with the parameter of interest, currently and the x0 needs to be conditioned for the outcome equation.
-For paremeter of interest, currently serve:
-(1) "ATE" 
-(2) "ATT"
-(3) "ATUT"
+Actual Code : " testEstObj.assignParam(linear, normal, LLRMTE, polyOrder) "
 
-It does not matter if the PoI is supplied in lower case of upper case.
+Step 3:
+Call the relevant method of the estimator object with the x0 to be conditioned on. The three treatment effect methods available are:
+(1) ate
+(2) att
+(3) atut
+
+Notice that you need to call the lower case method.
+
+Actual Code : " testEstObj.ate(x0) "
 
 IV. What to Expect?
 
@@ -67,10 +78,10 @@ Therefore, the 3rd release will add more propensity score estimator other than p
 (3) Polynomial logit on steroid (RKHS version)
 (4) Normal Mixture (MLE - EM Algorithm)
 
-V. Join the Fun Party!
+V. Join the Party!
 If you want to contribute to the project, please do not hesistate to contact me.
-If you have specific request for the estimator, please do not hesistate to contact me.
 If you find a bug in the toolbox, please do not hesistate to contact me.
+If you have specific request for the toolbox, please do not hesistate to contact me.
 
 My email is Junchen@uchicago.edu
 
